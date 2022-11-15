@@ -9,3 +9,7 @@ To setup the development environment, install [poetry](https://python-poetry.org
 ```zsh
 $ poetry install
 ```
+
+## Scripts
+
+* `download_movielens_dataset.py`: Download the MovieLens dataset.
