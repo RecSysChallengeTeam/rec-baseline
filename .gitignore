@@ -2,3 +2,5 @@
 __pycache__/
 dataset/
 tmp/
+
+.DS_Store
