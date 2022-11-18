@@ -1,1 +1,1 @@
-from cf_baseline.algos.mf import VanillaMF
+from cf_baseline.algos.mf import VanillaMF, RegularizedMF
