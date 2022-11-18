@@ -18,8 +18,7 @@ class VanillaMF(nn.Module):
         item_emb = self.item_embeddings(item_ids).squeeze(dim=1)  # (batch_size, latent_dim)
         
         return (user_emb * item_emb).sum(dim=1)  # (batch_size, )
-    
-    # @classmethod
+
     def loss_fn(self, preds: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         """
         Simple MSE loss as the loss function for the model.
@@ -83,8 +82,7 @@ class RegularizedMF(VanillaMF):
         denominator = (user_emb.shape[0] * item_emb.shape[0]) * ((user_emb.T @ user_emb) * (item_emb.T @ item_emb)).sum()
         
         return self.gravity_coeff * 1 / denominator
-        
-    # @classmethod
+
     def loss_fn(self, preds: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         """
         MSE loss with regularization.
