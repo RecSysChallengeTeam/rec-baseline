@@ -4,32 +4,26 @@ import torch
 def calculate_mrr(
     predictions: torch.Tensor,
     targets: torch.Tensor,
-    k: int = 10,
     reduction: str = "mean",
 ) -> torch.Tensor:
     """
     Calculate the Mean Reciprocal Rank (MRR) metric.
 
     Args:
-        predictions: The predictions.
-        targets: The targets.
-        k: The number of top predictions to consider. Defaults to 10.
+        predictions: The predictions, (batch_size, n_items).
+        targets: The targets, (batch_size, n_items).
         reduction: The reduction method. Defaults to "mean".
 
     Returns:
         The MRR metric.
     """
     
-    # Get the top k predictions
-    top_k = predictions.topk(k=k, dim=1)[1]
-
     # Get the ranks of the targets
-    ranks = torch.zeros_like(targets)
-    for i in range(targets.shape[0]):
-        ranks[i] = torch.where(top_k[i] == targets[i])[0]
+    ranks = (targets == predictions[:, 0].unsqueeze(1)).nonzero()[:, 1]
 
     # Calculate the MRR
-    mrr = 1 / (ranks + 1)
+    mrr = 1 / (ranks + 1).float()
+
 
     # Reduce the MRR
     if reduction == "mean":
