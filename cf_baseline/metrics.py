@@ -11,10 +11,10 @@ def calculate_mrr(
     Calculate the Mean Reciprocal Rank (MRR) metric.
 
     Args:
-        predictions (torch.Tensor): The predictions.
-        targets (torch.Tensor): The targets.
-        k (int, optional): The number of top predictions to consider. Defaults to 10.
-        reduction (str, optional): The reduction method. Defaults to "mean".
+        predictions: The predictions.
+        targets: The targets.
+        k: The number of top predictions to consider. Defaults to 10.
+        reduction: The reduction method. Defaults to "mean".
 
     Returns:
         The MRR metric.
