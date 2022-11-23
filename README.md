@@ -9,3 +9,13 @@ To setup the development environment, install [poetry](https://python-poetry.org
 ```zsh
 $ poetry install
 ```
+
+To activate the virtual environment, run the following command:
+
+```zsh
+$ poetry shell
+```
+
+## Scripts
+
+* `download_movielens_dataset.py`: Download the MovieLens dataset.
