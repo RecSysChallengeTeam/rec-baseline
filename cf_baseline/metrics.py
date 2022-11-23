@@ -24,7 +24,6 @@ def calculate_mrr(
     # Calculate the MRR
     mrr = 1 / (ranks + 1).float()
 
-
     # Reduce the MRR
     if reduction == "mean":
         mrr = mrr.mean()
