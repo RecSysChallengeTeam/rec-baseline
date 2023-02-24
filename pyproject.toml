@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "collaborative-filtering-baseline"
+name = "rec-baseline"
 version = "0.1.0"
 description = ""
 authors = ["nutorbit <nutorbitx@gmail.com>"]
 packages = [
-    { include = "cf_baseline"},
+    { include = "rec_baseline"},
 ]
 
 [tool.poetry.dependencies]

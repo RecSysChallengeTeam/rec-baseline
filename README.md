@@ -1,6 +1,6 @@
-# Baseline
+# rec-baseline
 
-This repository contains the baseline algorithms for solving recommendation task. 
+This repository contains the baseline algorithms for tackling recommendation task. 
 
 ## Development setup
 
