@@ -1,6 +1,6 @@
-# Collaborative filtering baseline
+# Baseline
 
-This repository contains the baseline implementation of collaborative filtering algorithms. 
+This repository contains the baseline algorithms for solving recommendation task. 
 
 ## Development setup
 
