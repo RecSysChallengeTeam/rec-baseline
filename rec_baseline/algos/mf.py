@@ -33,7 +33,8 @@ class VanillaMF(BaseModel):
             MSE of the predictions and the ground truth
         """
         
-        return nn.MSELoss()(preds, targets)  # use package to calculate loss
+        # return nn.MSELoss()(preds, targets)  # use package to calculate loss
+        return ((preds - targets) ** 2).mean()
 
 
 class RegularizedMF(VanillaMF):

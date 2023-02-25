@@ -66,3 +66,20 @@ class GRU4Rec(BaseModel):
         """
         
         return F.cross_entropy(preds, targets)
+    
+    def predict(self, item_ids: torch.Tensor) -> torch.Tensor:
+        """
+        Predict the ordered item ids.
+        
+        Args:
+            item_ids: the item ids of the session
+            
+        Returns:
+            the ordered item ids
+        """
+        
+        logits = self.forward(item_ids)  # (batch_size, n_items)
+        
+        ordered_item_ids = torch.argsort(logits, dim=1, descending=True)  # (batch_size, n_items)
+        
+        return ordered_item_ids

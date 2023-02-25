@@ -3,21 +3,22 @@ import numpy as np
 
 from typing import List
 from rec_baseline.trainer.base import BaseTrainer
+from rec_baseline.metrics import get_hit_ratio, get_mrr
 
 
-class MFTrainer(BaseTrainer):
+class GRU4RecTrainer(BaseTrainer):
     """
-    Trainer for matrix factorization model.
+    Trainer for GRU4Rec.
     """
 
     def train_one_epoch(self, train_loader: torch.utils.data.DataLoader, epoch: int) -> List:
         loss_list = []
         
         self.model.train()
-        for batch_idx, (user_ids, item_ids, ratings) in enumerate(train_loader):
-            user_ids, item_ids, ratings = user_ids.to(self.device), item_ids.to(self.device), ratings.to(self.device)
-            preds = self.model(user_ids, item_ids)
-            loss = self.loss_fn(preds, ratings)
+        for batch_idx, (views, purchase) in enumerate(train_loader):
+            views, purchase = views.to(self.device), purchase.to(self.device)
+            preds = self.model(views)
+            loss = self.loss_fn(preds, purchase)
             self.optimizer.zero_grad()
             loss.backward()
             self.optimizer.step()
@@ -29,13 +30,15 @@ class MFTrainer(BaseTrainer):
     def validate(self, val_loader: torch.utils.data.DataLoader, epoch: int) -> List:
         self.model.eval()
         with torch.no_grad():
-            for batch_idx, (user_ids, item_ids, ratings) in enumerate(val_loader):
-                user_ids, item_ids, ratings = user_ids.to(self.device), item_ids.to(self.device), ratings.to(self.device)
-                preds = self.model(user_ids, item_ids)
-                loss = self.loss_fn(preds, ratings)
+            for batch_idx, (views, purchase) in enumerate(val_loader):
+                views, purchase = views.to(self.device), purchase.to(self.device)
+                preds = self.model(views)
+                loss = self.loss_fn(preds, purchase)
                 
                 metrics = {
                     "validation_loss": loss.item(),
+                    "hit_ratio": get_hit_ratio(self.model.predict(views), purchase),
+                    "mrr": get_mrr(self.model.predict(views), purchase),
                 }
                 
         return metrics
