@@ -1,8 +1,10 @@
 import torch
 import torch.nn as nn
 
+from rec_baseline.algos.base import BaseModel
 
-class VanillaMF(nn.Module):
+
+class VanillaMF(BaseModel):
     """
     An implementation of vanilla matrix factorization model.
     """
@@ -31,8 +33,7 @@ class VanillaMF(nn.Module):
             MSE of the predictions and the ground truth
         """
         
-        # return nn.MSELoss()(preds, targets)  # use package to calculate loss
-        return ((preds - targets) ** 2).mean()
+        return nn.MSELoss()(preds, targets)  # use package to calculate loss
 
 
 class RegularizedMF(VanillaMF):

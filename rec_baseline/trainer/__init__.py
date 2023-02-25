@@ -1,1 +1,1 @@
-from cf_baseline.trainer.mf import MFTrainer
+from rec_baseline.trainer.mf import MFTrainer

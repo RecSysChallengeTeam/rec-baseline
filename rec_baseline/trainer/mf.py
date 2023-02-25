@@ -1,22 +1,13 @@
 import torch
 
-from typing import Callable, List
-from cf_baseline.common import get_device
-from cf_baseline.trainer.base import BaseTrainer
+from typing import List
+from rec_baseline.trainer.base import BaseTrainer
 
 
 class MFTrainer(BaseTrainer):
     """
     Trainer for matrix factorization model.
     """
-    
-    def __init__(self, model, optimizer: torch.optim.Optimizer, loss_fn: Callable, device: str = get_device()):
-        self.model = model
-        self.optimizer = optimizer
-        self.loss_fn = loss_fn
-        self.device = device
-        
-        self.model = self.model.to(self.device)
 
     def train_one_epoch(self, train_loader: torch.utils.data.DataLoader, epoch: int) -> List:
         loss_list = []

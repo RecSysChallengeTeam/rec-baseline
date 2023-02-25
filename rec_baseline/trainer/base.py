@@ -1,4 +1,9 @@
+import torch
+
+from typing import Callable
 from typing import Any, Tuple
+
+from rec_baseline.common import get_device
 
 
 class BaseTrainer:
@@ -7,6 +12,14 @@ class BaseTrainer:
     """
     
     # TODO: add save, load methods, and early stopping
+    
+    def __init__(self, model, optimizer: torch.optim.Optimizer, loss_fn: Callable, device: str = get_device()):
+        self.model = model
+        self.optimizer = optimizer
+        self.loss_fn = loss_fn
+        self.device = device
+        
+        self.model = self.model.to(self.device)
     
     def fit(self, train_loader, val_loader, epochs, verbose: int = 1) -> Tuple:
         """
