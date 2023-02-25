@@ -8,6 +8,8 @@ from rec_baseline.algos.base import BaseModel
 class GRU4Rec(BaseModel):
     """
     An implementation of GRU4Rec.
+    
+    Ref: https://dl.acm.org/doi/abs/10.1145/3556702.3556851
     """
     
     def __init__(self, 
